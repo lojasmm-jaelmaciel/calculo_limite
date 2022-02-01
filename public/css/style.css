@@ -1,0 +1,318 @@
+:root {
+    /* --cor-vermelha: rgb(238, 63, 101); */
+    --cor-vermelha: #f30e00;
+    --cor-vermelho-claro: rgb(241, 163, 180);
+  }
+  
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Montserrat, "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    display: grid;
+    place-items: center;
+  }
+
+  nav {
+    margin-bottom: 20px;
+  }
+
+
+  /* passa o menu para a cor vermelha */
+  .bg-red{
+    background-color: var(--cor-vermelha);
+  }
+
+
+  /* dimensões do logo */
+  .logo{
+    width: 200px;
+  }
+
+
+  /* Global Stylings */
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  
+  input {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+  }
+  
+  .width-50 {
+    width: 50%;
+  }
+  
+  .ml-auto {
+    margin-left: auto;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  /* Barra de Progresso */
+  .barraprogresso {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    counter-reset: step;
+    margin: 2rem 0 4rem;
+  }
+  
+  .barraprogresso::before,
+  .progress {
+    content: "";
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 4px;
+    width: 100%;
+    background-color: #dcdcdc;
+    z-index: -1;
+  }
+  
+  .progress {
+    background-color: var(--cor-vermelha);
+    width: 0%;
+    transition: 0.3s;
+  }
+  
+  .progress-step {
+    width: 2.1875rem;
+    height: 2.1875rem;
+    background-color: #dcdcdc;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .progress-step::before {
+    counter-increment: step;
+    content: counter(step);
+  }
+  
+  .progress-step::after {
+    content: attr(data-title);
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    font-size: 0.85rem;
+    color: #666;
+  }
+  
+  .progress-step-active {
+    background-color: var(--cor-vermelha);
+    color: #f3f3f3;
+  }
+  
+  /* Formulário */
+  .formulario {
+    /* width: clamp(320px, 30%, 430px); */
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    border-radius: 0.35rem;
+    padding: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .form-step {
+    display: none;
+    transform-origin: top;
+    animation: animate 0.5s;
+  }
+  
+  .form-step-active {
+    display: block;
+  }
+  
+  .input-group {
+    margin: 2rem 0;
+  }
+  
+  @keyframes animate {
+    from {
+      transform: scale(1, 0);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1, 1);
+      opacity: 1;
+    }
+  }
+  
+  /* Botão */
+  .btns-group {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  
+  .btn {
+    padding: 0.75rem;
+    display: block;
+    text-decoration: none;
+    background-color: var(--cor-vermelha);
+    color: #f3f3f3;
+    text-align: center;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  .btn:hover {
+    box-shadow: 0 0 0 2px #fff, 0 0 0 3px var(--cor-vermelha);
+  }
+
+  .check-box-btn{
+    margin-right: 20px;
+  }
+
+  /* Esconde o input */
+input[type='file'] {
+  display: none
+}
+
+/* Aparência que terá o seletor de arquivo */
+.container-foto{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background-color: rgb(231, 226, 226);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.container-foto:hover {
+  background-image: linear-gradient(rgb(231, 226, 226), rgb(255, 255, 255));
+}
+
+#foto-label-text {
+  border: 1px solid red;
+  margin-left: 40px;
+  display: none;
+}
+
+.foto-label-icone {
+  font-size: 100px;
+  cursor: pointer;
+  display: block;
+  color: red;
+}
+
+.exibe-img{
+  width: 276px; 
+  height: 368px;
+  background-color: #666;
+  /* margin-bottom: 20px; */
+  /* border-radius: 10%;   */
+  /* border: thin solid; */
+  /* padding: 5px; */
+}
+
+/* Tela para confirmação de delete de dados */
+.delete-imagem{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px 10px 20px;
+  background-color: rgb(231, 226, 226);
+  border-radius: 10px;
+  border: 1px solid var(--cor-vermelha);
+  margin-bottom: 20px;
+  margin-left: 20px;
+}
+
+.delete-imagem > img {
+  box-shadow: 4px 4px 4px 2px rgba(7, 7, 7, 0.2);
+  border-radius: 50px;
+}
+
+.delete-dados {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.delete-titulo{
+  border-top: 1px solid var(--cor-vermelha);
+  border-left: 1px solid var(--cor-vermelha);
+  border-right: 1px solid var(--cor-vermelha);
+  height: 60px;
+  color: #fff;
+  margin-bottom: 20px;
+  padding: 10px 20px 10px 20px;
+}
+
+.delete-confirmacao {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid var(--cor-vermelha);
+  border-left: 1px solid var(--cor-vermelha);
+  border-right: 1px solid var(--cor-vermelha);
+  font-size: 30px;
+  padding: 10px 20px 10px 20px;
+}
+
+.delete-confirmacao > button {
+  margin-left: 30px;
+  margin-right: 20px;
+}
+
+
+
+/* #########################################3 */
+.mensagem-modal{
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0, 0.8);
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 2000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mensagem{
+  border: 4px solid #ffffff;
+  width: 60%;
+  min-width: 300px;
+  padding: 30px 20px 30px 20px;
+  border-radius: 10px;;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.mensagem-sucesso {
+  background-color: rgb(122, 243, 106);
+}
+
+.mensagem-erro {
+  background-color: rgb(243, 115, 106);
+}
+
+.mensagem-fechar {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 4px solid #ffffff;
+  background-color: var(--cor-vermelha);
+  cursor: pointer;
+  box-shadow: 0 4px 4px 0 rgba(0,0,0, .5);
+}
+
