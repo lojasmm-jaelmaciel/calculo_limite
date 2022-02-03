@@ -8,7 +8,14 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class ListaCadastrosController extends Controller {
-    
+
+    /**
+     * Esta função busca os dados pessoais e de endereço para mostrar o mínimo de dados que identifique
+     * o cadastro na view. Depois retorna para a view lista_cadastros onde estará disponível os botãos
+     * para editar e ou deletar um cadastro
+     *
+     * @return View
+     */
     public function index(): View {
         $dados_db = DB::table('enderecos')
         ->join('dados_pessoas', 'enderecos.id', '=', 'dados_pessoas.endereco_id')
@@ -21,17 +28,5 @@ class ListaCadastrosController extends Controller {
         return view('lista_cadastros', $dados);        
 
     }
-
-    public function detalheCadastro(int $id): View {
-
-        $usuario = DadosPessoa::find($id);
-        $dados = [
-            'usuario' => $usuario
-        ];
-
-        return view('detalhe_cadastro', $dados);
-
-    }
-
 
 } // class ListaCadastros

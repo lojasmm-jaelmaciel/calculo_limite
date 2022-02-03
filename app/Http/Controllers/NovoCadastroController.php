@@ -23,14 +23,17 @@ use Illuminate\View\View;
 class NovoCadastroController extends Controller
 {
 
-    /* Função index é exibe para o usuário um formulário vazio pronto para ser prenchido
-    Envia um array com os estados da federação brasileira onde é usado no preenchimento do
-    estado de naturalidade do usuário */
-
-    public function index(): View
-    {
+    /**
+     * * Função index exibe para o usuário um formulário vazio pronto para ser prenchido 
+     * Envia um array com os estados da federação brasileira onde é usado no preenchimento do 
+     * estado de naturalidade do usuário. A variavel $mensagem se faz necessário por na view
+     * existe uma verificação da sua existência. Ela é usada para mostrar mensagens de erro
+     * ou sucesso no cadatro.
+     *
+     * @return View
+     */
+    public function index(): View {
         // $ip = $_SERVER['REMOTE_ADDR'];
-        // echo $ip;
 
         // recebe a lista de estados da função estados em Helpers/estados.php
         $estados = estados();
@@ -49,24 +52,29 @@ class NovoCadastroController extends Controller
 
 
 
-    /* A função novoCadastro é acionada quando o usuário prescionar o botão salavar. Uma requisição POST é feita.
-    Uma função para validar os dados validaDadosFormulario() é chamada onde cada dados passa por determinadas regras.
-    Se os dados não forem consistentes, o sistema volta para o formulário com os respectivos avisos das inconsistências.
-    obs: o formulário fica com as informações que já havia sido digitadas pelo usuário.
-    Se a validação for ok, os dados são extraídos extraiDadosFormulario() nos seus respectivos arrays e retorna um array de
-    array que será enviados para serem persistidos no banco de dados. A sequênci ao qual os dados são gravados, se faz 
-    necessário devido a relação das tabelas através do ID. Logo mais um elemento com o ID é adicionaod no array para que
-    a relação seja possível.
+    
+    /**
+     * A função novoCadastro é acionada quando o usuário prescionar o botão salavar. Uma requisição POST é feita.
+     * Uma função para validar os dados validaDadosFormulario() é chamada onde cada dado passa por determinadas regras.
+     * Se os dados não forem consistentes, o sistema volta para o formulário com os respectivos avisos das inconsistências.
+     * obs: o formulário fica com as informações que já havia sido digitadas pelo usuário.
+     * Se a validação for ok, os dados são extraídos extraiDadosFormulario() nos seus respectivos arrays(referente as tabelas no DB)
+     * e retorna um array de arrays que será enviados para serem persistidos no DB. A sequência ao qual os dados são gravados, se faz 
+     * necessário devido a relação das tabelas através do ID. Para que o relacionamento seja possível entre as tabelas a coluna
+     * de relacionamento + o ID é adicionado no array antes de persistir os dados no DB.
+     * Se uma das tabelas der erro no INSERT, dentro do cath as tabelas que foram cadastradas são deletadas para que não tenhamos
+     * dados soltos sem relação no DB.
+     *
+     * @param Request $request
+     * @return View
      */
     public function novoCadastro(Request $request): View
     {
         // recebe a lista de estados da função estados em Helpers/estados.php
         $estados = estados();
 
-        // essa função está em Helpers/validaDados.php
+        // essas função estão em Helpers
         validaDadosFormulario($request);
-        
-
         $dados_extraidos = extraiDadosFormulario($request);
     
         try {
@@ -74,9 +82,9 @@ class NovoCadastroController extends Controller
             $dados_pessoas = null;
             $dados_profissionais = null;
             $dados_localizacao = null;
+
             // os dados que foram extraidos do fomulário são agora persistidos no banco
-            // as tabelas com relacionamento, é adicionado o campo e o ID ao qual é feita a relação
-            
+            // as tabelas com relacionamento, é adicionado o campo + o ID ao qual é feita a relação
             $dados_endereco = Endereco::create($dados_extraidos['dados_endereco']);
 
             $dados_extraidos['dados_pessoas']['endereco_id'] = $dados_endereco->id;
@@ -99,6 +107,7 @@ class NovoCadastroController extends Controller
             ];
 
             return view('cadastro', $dados);
+            
         } catch (Exception $e) {
             $mensagem = ["classe" => "mensagem-erro", "mensagem" => "Erro ao salvar os dados: " . $e->getMessage()];
             // Deleta os possíveis dados que tenham sido cadastrados para não ficarem dados soltos na base de dados.

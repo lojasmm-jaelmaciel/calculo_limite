@@ -2,8 +2,18 @@
 
 use Illuminate\Support\Facades\File;
 
+/**
+ * Segundo as regras impostas, valida os dados digitados no formulário.
+ * 
+ * @param Request $request
+ * 
+ * O retorno é imediato para a página do cadastro com as mensagens de erro.
+ * No HTML é preciso ter @if($errors->all()) para identifica estes erros.
+ * @return Response  $request->validate($regras, $mensagens);
+ */
 function validaDadosFormulario($request){
 
+    # Sobrescreve as mensagens padrão do sistema, já que o $request->validate() retorna 2 parâmetros
     $mensagens = [
         'cep.min' => 'O "CEP" não está correto',
         'cidade.min' => 'Nome da "CIDADE" muito pequena',
@@ -18,6 +28,7 @@ function validaDadosFormulario($request){
         'required' => 'O campo ":attribute" é obrigatório!',
     ];
 
+    # Regras inpostas ao formulário para a necessidade de cada input
     $regras = [
         // dados de endereço
         'cep' => 'min:8 | required',
@@ -53,20 +64,23 @@ function validaDadosFormulario($request){
         // 'longitude' => 'required'
     ];
 
+    # retorno imediato para o HTML sobrescrevendo as regras e as mensagens padrão do sistema
     $request->validate($regras, $mensagens);
 }
 
 
-
+/**
+ * Função que extrai os dados da requisição, criando um array referente a cada  tabela na base de dados. 
+ * Por fim cria um array que será retornado para o Controller fazer a persistência dos dados. 
+ * Em alguns casos algumas funções são chamadas para padronizar os dados no padrão americano.
+ *  - somenteNumeros: retira todo e qualquer caracter que não faz parte do dado numérico
+ *  - formataDataEn: transforma a data que vem no padrão pt-br para o padrão americano
+ *
+ * @param [Request] $request
+ * @param [string] $foto_nome
+ * @return array
+ */
 function extraiDadosFormulario($request, $foto_nome = null){
-    /* Função que extrai os dados da requisição, criando um array referente a cada
-    Tabela na base de dados. Por fim cria um array que será retornado para o Controller
-    fazer a persistência dos dados. 
-
-    Em alguns casos algumas funções são chamadas para padronizar os dados conforme o padrão do banco de dados
-    - somenteNumeros: retira todo e qualquer caracter que não faz parte do dado numérico
-    - formataDataEn: transforma a data que vem no padrão pt-br para o padrão americano  */
-
 
     $dados_endereco = [
         'rua' => $request->rua,

@@ -1,3 +1,11 @@
+/**
+ * Essa função é invocada quando o usuário clicar no botão Dowload Cadstros e ou Download CSV.
+ * O script irá fazer uma conexão com o backend, mais precisamente com a roda json que irá fazer
+ * a busca dos dados no DB e retornar um Json. Se a a operação xhttp.readyState for concluida (4)
+ * e o xhttp.status (200) então o xhttp.responseText é atribuido na variável data.
+ * Em seguida o cabeçalho do CSV é criado. Um forEach percorre data para formar as linhas da tabela.
+ * Por fim o arquivo tipo CSV é criado e disponível para download.
+ */
 function gerarCSV() {
 
     const BASE_URL = 'http://127.0.0.1:8000/'
@@ -13,7 +21,7 @@ function gerarCSV() {
             data = JSON.parse(xhttp.responseText);
             // extraido data de dentro de data 
             return false
-        }/* if */
+        }
 
     } /* xhttp function() */
     xhttp.send();   //A execução do script CONTINUARÁ mesmo que a requisição não tenha retornado do servidor
@@ -61,6 +69,7 @@ function gerarCSV() {
         csv += '\n';
     });
 
+    // processo de codificação dos dados para csv e criação do link para download
     var hiddenElement = document.createElement('a');
     hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
     hiddenElement.target = '_blank';
@@ -68,34 +77,3 @@ function gerarCSV() {
     hiddenElement.click();
 
 }
-
-// var produtos = [
-//     {
-//         codigo: '01',
-//         nome: 'Pastilha freio uno',
-//         descricao: 'Serve até ano 2000'
-//     },
-//     {
-//         codigo: '02',
-//         nome: 'Pastilha freio gol',
-//         descricao: 'Server para 1ª 2ª e 3ª geração'
-//     }];
-
-// var _gerarCsv = function () {
-
-//     var csv = 'codigo, nome, descricao\n';
-
-//     produtos.forEach(function (row) {
-//         csv += row.codigo;
-//         csv += ',' + row.nome;
-//         csv += ',' + row.descricao;
-//         csv += '\n';
-//     });
-
-//     var hiddenElement = document.createElement('a');
-//     hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
-//     hiddenElement.target = '_blank';
-//     hiddenElement.download = 'produtos.csv';
-//     hiddenElement.click();
-// };
-//   _gerarCsv();

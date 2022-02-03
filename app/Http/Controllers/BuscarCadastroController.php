@@ -10,6 +10,18 @@ use Illuminate\Support\Facades\DB;
 
 class BuscarCadastroController extends Controller{
     
+
+    /**
+     * Função usada para fazer uma buica no DB através do e-mail ou do CPF.
+     * O algoritmo identifica se tem um arroba na string, caso positivo, a busca é feita pelo e-mail
+     * caso negativo, a busca é feita pelo CPF. Antes de buscar pelo CPF, todos os caracteres que 
+     * não sejam números são eliminados da string. Conforme o resultado da busca, a variável $redirecionamento
+     * receberá uma string com o nome a view de destino.
+     * Se o cadastro não for encontrado, uma mensagem de erro é gerada no (Exception) e exibida na tela.
+     * 
+     * @param Request $request
+     * @return View
+     */
     public function index(Request $request): View {
 
         $buscar = $request->buscar;
@@ -43,8 +55,6 @@ class BuscarCadastroController extends Controller{
             ];
         }
         
-        
-
         return view($redirecionamento, $dados);
 
     }

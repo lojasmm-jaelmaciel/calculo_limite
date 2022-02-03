@@ -3,8 +3,8 @@
 @section('titulo', 'Edição de Cadastros')
 
 
-<!-- ################################################# -->
-<!-- Sessão onde uma janela modal é exibida conforme a mensagem retornada -->
+{{-- #################################################
+ Sessão onde uma janela modal é exibida conforme a mensagem retornada --}}
 @section('mensagem')
 @if($mensagem)
     <div class="mensagem-modal" id="mensagem-modal">
@@ -19,9 +19,9 @@
 
 @section('conteudo')
 
-<!-- ##################################################### -->
-<!-- Este bloco de código mostra as mensagens na tela no momento da alteração do cadastro
-     caso alguma informação esteja errada ou faltando -->
+{{-- #####################################################
+    Este bloco de código mostra as mensagens na tela no momento do cadastro
+     caso alguma informação esteja errada ou faltando --}}
 @if($errors->all()) 
     <div class="alert alert-danger">
         @foreach($errors->all() as $error)
@@ -35,7 +35,8 @@
     @csrf
     @method('PUT')
     <h1 class="text-center">Editar Dados</h1>
-    <!-- Barra de Progresso -->
+    
+    {{-- ############################## Barra de Progresso ############################## --}}
     <div class="barraprogresso">
         <div class="progress" id="progress"></div>
 
@@ -45,7 +46,9 @@
         <div class="progress-step" data-title="foto"></div>
     </div>
 
-    <!-- Dados pessoais -->
+    
+    
+    {{-- ############################## Dados pessoais ############################## --}}
     <div class="form-step form-step-active">
         <div class="input-group">
             <label for="nome">Nome</label>
@@ -144,9 +147,12 @@
             <button class="btn btn-outline-danger btn-next">Próximo</button>
         </div>
     </div>
-    <!-- fim dos dados pessoais -->
+    {{-- fim dos dados pessoais --}}
 
-    <!-- inicio dos dados de endereço -->
+
+
+
+    {{-- ############################## dados de endereço ############################## --}}
     <div class="form-step">
         <div class="input-group">
             <label for="cep">CEP</label>
@@ -193,9 +199,11 @@
             <button class="btn btn-outline-danger btn-next">Próximo</button>
         </div>
     </div>
-    <!-- Fim dados de endereço -->
+    {{-- Fim dados de endereço --}}
 
-    <!-- Inicio dados Profissionais -->
+
+
+    {{-- ############################## dados da profissão ############################## --}}
     <div class="form-step">
         <div class="input-group">
             <label for="empresa">Empresa</label>
@@ -232,11 +240,12 @@
             <button class="btn btn-outline-danger btn-next">Próximo</button>
         </div>
     </div>
+    {{-- Fim dados empresariais --}}
 
+
+    {{-- ############################## Foto e dados de localização ############################## --}}
     <div class="form-step">
-       
         <div class="input-group container-foto">
-            {{-- <label for="foto-input" class="btn btn-outline-danger foto-label-text" >Trocar Foto</label> --}}
             <label for="foto-input" class="btn btn-outline-default foto-label-text" >
                 <img id="exibe-img" for="foto-input" class="exibe-img" src="/img/foto/{{ $dados_pessoas->foto }}">
             </label>
@@ -248,7 +257,7 @@
             <input type="submit" value="Salvar" class="btn btn-outline-success" id="btn-salvar"/>
         </div>
     </div>
-    <!-- Fim dados empresariais -->
+    {{-- Fim dados localização --}}
 </form>
 @endsection
     

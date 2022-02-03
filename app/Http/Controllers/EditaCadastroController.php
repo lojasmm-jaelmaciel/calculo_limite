@@ -11,12 +11,16 @@ use Illuminate\View\View;
 
 class EditaCadastroController extends Controller {
     
-    /* A função index() é invocada quando uma requisição do tipo GET é feita. A função busca os dados no DB
-    formata alguns atributos para o padrão brasileiro e envia para a view.  
-    OBS: A variável $mensagem se faz necessário, pois a view verifica por sua existêcia, já que ao editar algum
-    dado uma mensagem de erro ou de sucesso é exibita */
-
-
+    /**
+     * A função index() é invocada quando uma requisição do tipo GET é feita. A função busca os dados no DB 
+     * formata alguns atributos para o padrão pt-br e envia para a view.
+     * OBS: A variável $mensagem se faz necessário, pois a view verifica por sua existêcia, já que ao editar algum
+     * dado uma mensagem de erro ou de sucesso é exibita.
+     *
+     * @param integer $id
+     * @param array|null $mensagem
+     * @return View
+     */
     public function index(int $id, array $mensagem = null): View {
         
         $estados = estados();
@@ -46,17 +50,23 @@ class EditaCadastroController extends Controller {
         return view('edita_cadastro', $dados);
     }
 
-    /* A função editaCadastro() é invocada quando uma requisição do tipo PUT é feita. A função busca os dados no DB
-    valida as informações, depois extrai os values do formulário, faz o update formata alguns atributos para o padrão 
-    brasileiro e envia para a view e retorna com os novos dados
-    Se o update não é possível, os dados antigos é retornado e uma mensagem com o erro é exibida  */
-
-
+    
+    /**
+     * A função editaCadastro() é invocada quando uma requisição do tipo PUT é feita. A função busca os dados no DB
+     * valida as informações, depois extrai os values do formulário, faz o update formata alguns atributos para o padrão 
+     * pt-br, envia para a view e retorna com os novos dados.
+     * Se o update não é possível, os dados antigos é retornado e uma mensagem com o erro é exibida.
+     *
+     * @param integer $id
+     * @param Request $request
+     * @return View
+     */
     public function editaCadastro(int $id, Request $request): View {
 
+        // busca no Helpers pela lista de estados brasileiros
         $estados = estados();
 
-        // busca os dados no DB através do ID dos dados pessoais
+        // busca os dados no DB através do ID da tabela dados_pessoas
         $dados_pessoas = DadosPessoa::find($id);
         $endereco_id = $dados_pessoas->endereco_id;
         $endereco = Endereco::find($endereco_id);
@@ -65,10 +75,12 @@ class EditaCadastroController extends Controller {
 
         $foto_nome = $dados_pessoas->foto;
         
+        // valida e extrai os dados do formulário
         validaDadosFormulario($request);      
         $dados_extraidos = extraiDadosFormulario($request, $foto_nome);
 
-        // tenta fazer o update, se der errado, abre uma exceção
+        // tenta fazer o update e ao mesmo tempo busca os novos dados para serem exibido
+        // no retorno a view, se der errado, abre uma exceção
         try {
             
             $dados_extraidos['dados_pessoas'];

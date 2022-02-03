@@ -2,8 +2,8 @@
 
 @section('titulo', 'Novo Cadastro')
 
-<!-- ################################################# -->
-<!-- Sessão onde uma janela modal é exibida conforme a mensagem retornada -->
+{{-- #################################################
+ Sessão onde uma janela modal é exibida conforme a mensagem retornada --}}
 @section('mensagem')
 @if($mensagem)
     <div class="mensagem-modal" id="mensagem-modal">
@@ -17,9 +17,9 @@
 
 @section('conteudo')
 
-<!-- ##################################################### -->
-<!-- Este bloco de código mostra as mensagens na tela no momento do cadastro
-     caso alguma informação esteja errada ou faltando -->
+{{-- #####################################################
+    Este bloco de código mostra as mensagens na tela no momento do cadastro
+     caso alguma informação esteja errada ou faltando --}}
 @if($errors->all()) 
 <div class="alert alert-danger">
     @foreach($errors->all() as $error)
@@ -34,7 +34,8 @@
 <form action="{{ route('cadastro.novo-cadastro') }}" method="POST" class="formulario" id="formulario" enctype="multipart/form-data">
     @csrf
     <h1 class="text-center">Formulário de Cadastro</h1>
-    <!-- Barra de Progresso -->
+
+    {{-- ############################## Barra de Progresso ############################## --}}
     <div class="barraprogresso">
         <div class="progress" id="progress"></div>
 
@@ -44,7 +45,10 @@
         <div class="progress-step" data-title="foto"></div>
     </div>
 
-    <!-- Dados pessoais -->
+
+
+    
+    {{-- ############################## Dados pessoais ############################## --}}
     <div class="form-step  form-step-active">
         <div class="input-group">
             <label for="nome">Nome</label>
@@ -143,14 +147,13 @@
             <button class="btn btn-outline-danger btn-next">Próximo</button>
         </div>
     </div>
-    <!-- fim dos dados pessoais -->
+    {{-- fim dos dados pessoais --}}
 
 
 
 
 
-
-    <!-- inicio dos dados de endereço -->
+    {{-- ############################## dados de endereço ############################## --}}
     <div class="form-step">
 
         <div class="input-group">
@@ -198,13 +201,11 @@
             <button class="btn btn-outline-danger btn-next">Próximo</button>
         </div>
     </div>
-    <!-- Fim dados de endereço -->
+    {{-- Fim dados de endereço --}}
 
 
 
-
-
-    <!-- Inicio dados Profissionais -->
+    {{-- ############################## dados da profissão ############################## --}}
     <div class="form-step">
         <div class="input-group">
             <label for="empresa">Empresa</label>
@@ -241,10 +242,10 @@
             <button class="btn btn-outline-danger btn-next">Próximo</button>
         </div>
     </div>
-    <!-- Fim dados empresariais -->
+    {{-- Fim dados empresariais --}}
 
 
-    <!-- foto -->
+    {{-- ############################## Foto e dados de localização ############################## --}}
     <div class="form-step">
         <div class="input-group">
             <input type="text" name="ip_endereco" id="ip_endereco" hidden />
@@ -269,7 +270,7 @@
             <input type="submit" value="Salvar" class="btn btn-outline-success" id="btn-salvar" />
         </div>
     </div>
-
+    {{-- Fim dados localização --}}
 </form>
 
 

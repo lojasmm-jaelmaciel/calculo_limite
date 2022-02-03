@@ -3,15 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
-use Nette\Utils\Json as UtilsJson;
-use PHPUnit\Util\Json;
-use Psy\Util\Json as UtilJson;
+// use Nette\Utils\Json as UtilsJson;
+// use PHPUnit\Util\Json;
+// use Psy\Util\Json as UtilJson;
+
 
 class GerarJsonController extends Controller {
     /**
-     * Display a listing of the resource.
+     * Busca todos os dados do DB e retorna no formato json.
+     * Essa função é invocada pelo javascript csv_download.js. Este script irá transformar este
+     * jswon em um csv para download.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|Json
      */
     public function index()     {
         

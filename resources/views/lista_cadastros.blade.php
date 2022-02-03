@@ -37,6 +37,5 @@
     </table>
 
     <a class="btn btn-success" href="" onclick="gerarCSV()">Download CSV</a>
-    {{-- <a class="btn btn-success" href="{{ route('cadastro.json') }}" onclick="gerarCSV()">Gerar Json</a> --}}
 </div>
 @endsection

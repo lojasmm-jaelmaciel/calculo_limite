@@ -70,6 +70,8 @@
     </script>
     <script src="{{ url('js/jquery.js') }}"></script>
     <script src="{{ url('js/script.js') }}"></script>
+    <script src="{{ url('js/etapas_formulario.js') }}"></script>
+    <script src="{{ url('js/dados_localizacao.js') }}"></script>
     <script src="{{ url('js/mask.js') }}"></script>
     <script src="{{ url('js/cep.js') }}"></script>
     <script src="{{ url('js/csv_download.js') }}"></script>

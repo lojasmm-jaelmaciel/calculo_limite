@@ -7,7 +7,8 @@ use Illuminate\Auth\Middleware\Authenticate as Middleware;
 class Authenticate extends Middleware
 {
     /**
-     * Get the path the user should be redirected to when they are not authenticated.
+     * Sempre que o usuário tentar acessar algo que tem a necessidade de estar logado
+     * é direcionado para o formulário de autenticação.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return string|null
